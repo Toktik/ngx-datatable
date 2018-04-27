@@ -106,6 +106,13 @@ export interface TableColumn {
      */
     pipe?: PipeTransform;
     /**
+     * Should the row object passed to pipe
+     *
+     * @type {boolean}
+     * @memberOf TableColumn
+     */
+    pipeUseRow?: boolean;
+    /**
      * Can the column be sorted
      *
      * @type {boolean}
