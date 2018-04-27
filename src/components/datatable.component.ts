@@ -1038,6 +1038,13 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
       }
     }
 
+    if (
+      (column.frozenLeft !== prevCol.frozenLeft) ||
+      (column.frozenRight !== prevCol.frozenRight)
+    ) {
+      return;
+    }
+
     this._internalColumns = cols;
 
     this.reorder.emit({
