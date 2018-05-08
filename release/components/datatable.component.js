@@ -775,8 +775,12 @@ var DatatableComponent = /** @class */ (function () {
         var cols = this._internalColumns.map(function (c) {
             return __assign({}, c);
         });
+        var prevCol = cols[newValue];
+        if ((column.frozenLeft !== prevCol.frozenLeft) ||
+            (column.frozenRight !== prevCol.frozenRight)) {
+            return;
+        }
         if (this.swapColumns) {
-            var prevCol = cols[newValue];
             cols[newValue] = column;
             cols[prevValue] = prevCol;
         }
