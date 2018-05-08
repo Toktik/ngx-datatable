@@ -30,7 +30,7 @@ var columns_1 = require("./columns");
 var row_detail_1 = require("./row-detail");
 var footer_1 = require("./footer");
 var header_1 = require("./header");
-var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
+var rxjs_1 = require("rxjs");
 var DatatableComponent = /** @class */ (function () {
     function DatatableComponent(scrollbarHelper, dimensionsHelper, cd, element, differs) {
         this.scrollbarHelper = scrollbarHelper;
@@ -203,7 +203,7 @@ var DatatableComponent = /** @class */ (function () {
          */
         this.tableContextmenu = new core_1.EventEmitter(false);
         this.rowCount = 0;
-        this._offsetX = new BehaviorSubject_1.BehaviorSubject(0);
+        this._offsetX = new rxjs_1.BehaviorSubject(0);
         this._count = 0;
         this._offset = 0;
         // get ref to elm for measuring
@@ -775,12 +775,8 @@ var DatatableComponent = /** @class */ (function () {
         var cols = this._internalColumns.map(function (c) {
             return __assign({}, c);
         });
-        var prevCol = cols[newValue];
-        if ((column.frozenLeft !== prevCol.frozenLeft) ||
-            (column.frozenRight !== prevCol.frozenRight)) {
-            return;
-        }
         if (this.swapColumns) {
+            var prevCol = cols[newValue];
             cols[newValue] = column;
             cols[prevValue] = prevCol;
         }
