@@ -152,6 +152,7 @@ export declare class DatatableComponent implements OnInit, DoCheck, AfterViewIni
      * Array of sorted columns by property and type.
      * Default value: `[]`
      */
+    _sorts: any[];
     sorts: any[];
     /**
      * Css class overrides
