@@ -3483,7 +3483,7 @@ var DatatableComponent = /** @class */ (function () {
                 selected: this.selected
             });
         }
-        this._sorts = event._sorts;
+        this._sorts = event.sorts;
         // this could be optimized better since it will resort
         // the rows again on the 'push' detection...
         if (this.externalSorting === false) {
