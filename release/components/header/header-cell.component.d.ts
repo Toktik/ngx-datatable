@@ -29,12 +29,14 @@ export declare class DataTableHeaderCellComponent {
     sortFn: any;
     sortClass: string;
     sortDir: SortDirection;
+    sortIndex: number;
     selectFn: any;
     cellContext: any;
     private _column;
     private _sorts;
     constructor(cd: ChangeDetectorRef);
     onContextmenu($event: MouseEvent): void;
+    calcSortIndex(sorts: any[]): number;
     calcSortDir(sorts: any[]): any;
     onSort(): void;
     calcSortClass(sortDir: SortDirection): string;

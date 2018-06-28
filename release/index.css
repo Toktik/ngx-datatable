@@ -110,6 +110,8 @@
         cursor: pointer; }
       .ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {
         cursor: move; }
+      .ngx-datatable .datatable-header .datatable-header-cell .sort-index {
+        margin-left: 5px; }
       .ngx-datatable .datatable-header .datatable-header-cell .sort-btn {
         line-height: 100%;
         vertical-align: middle;
