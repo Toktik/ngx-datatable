@@ -13,6 +13,7 @@ import { MouseEvent } from '../../events';
       orderable
       (reorder)="onColumnReordered($event)"
       (targetChanged)="onTargetChanged($event)"
+      (touchingEdge)="onTouchingEdge($event)"
       [style.width.px]="_columnGroupWidths.total"
       class="datatable-header-inner">
       <div
@@ -127,6 +128,7 @@ export class DataTableHeaderComponent {
   @Output() resize: EventEmitter<any> = new EventEmitter();
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() columnContextmenu = new EventEmitter<{ event: MouseEvent, column: any }>(false);
+  @Output() touchingEdge: EventEmitter<any> = new EventEmitter();
 
   _columnsByPin: any;
   _columnGroupWidths: any;
@@ -219,6 +221,10 @@ export class DataTableHeaderComponent {
           initialIndex > newIndex ? 'dragFromRight' : 'dragFromLeft')};
       }
     }
+  }
+
+  onTouchingEdge($event: any) {
+    this.touchingEdge.emit($event);
   }
 
   getColumn(index: number): any {

@@ -46,6 +46,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
         (sort)="onColumnSort($event)"
         (resize)="onColumnResize($event)"
         (reorder)="onColumnReorder($event)"
+        (touchingEdge)="onTouchingEdge($event)"
         (select)="onHeaderSelect($event)"
         (columnContextmenu)="onColumnContextmenu($event)">
       </datatable-header>
@@ -1063,6 +1064,13 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
       newValue,
       prevValue
     });
+  }
+
+  onTouchingEdge($event: any) {
+      let offsetX = $event === 'left' ? -5 : 5;
+      this.bodyComponent.scroller.setOffsetX(this.bodyComponent.scroller.scrollXPos + offsetX);
+      this.bodyComponent.scroller.updateOffset();
+      this.cd.detectChanges();
   }
 
   /**

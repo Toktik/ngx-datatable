@@ -27,6 +27,7 @@ import { RowGroupingComponent } from './basic/row-grouping.component';
 // -- Themes
 import { BootstrapThemeComponent } from './basic/bootstrap.component';
 import { DarkThemeComponent } from './basic/dark-theme.component';
+import { ColumnReorderHorizontalScrollComponent } from './columns/column-reorder-scrolling.component';
 
 // -- Paging
 import { ClientPagingComponent } from './paging/paging-client.component';
@@ -96,6 +97,7 @@ import { SummaryRowInlineHtmlComponent } from './summary/summary-row-inline-html
     ColumnForceComponent,
     ColumnPinningComponent,
     ColumnReorderComponent,
+    ColumnReorderHorizontalScrollComponent,
     FilterBarComponent,
     VirtualPagingComponent,
     DarkThemeComponent,
