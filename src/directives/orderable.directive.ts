@@ -1,6 +1,6 @@
 import {
   Directive, Output, EventEmitter, ContentChildren,
-  QueryList, KeyValueDiffers, AfterContentInit, OnDestroy, Inject
+  QueryList, KeyValueDiffers, AfterContentInit, OnDestroy, Inject, ElementRef
 } from '@angular/core';
 import { DraggableDirective } from './draggable.directive';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -10,6 +10,7 @@ export class OrderableDirective implements AfterContentInit, OnDestroy {
 
   @Output() reorder: EventEmitter<any> = new EventEmitter();
   @Output() targetChanged: EventEmitter<any> = new EventEmitter();
+  @Output() touchingEdge: EventEmitter<any> = new EventEmitter();
 
   @ContentChildren(DraggableDirective, { descendants: true })
   draggables: QueryList<DraggableDirective>;
@@ -18,7 +19,7 @@ export class OrderableDirective implements AfterContentInit, OnDestroy {
   differ: any;
   lastDraggingIndex: number;
 
-  constructor(differs: KeyValueDiffers, @Inject(DOCUMENT) private document: any) {
+  constructor(differs: KeyValueDiffers, @Inject(DOCUMENT) private document: any, private containerElRef: ElementRef) {
     this.differ = differs.find({}).create();
   }
 
@@ -85,6 +86,11 @@ export class OrderableDirective implements AfterContentInit, OnDestroy {
     const prevPos = this.positions[ model.prop ];    
     const target = this.isTarget(model, event);
 
+    const touchingEdge = this.isTouchingEdge(event);
+    if (touchingEdge) {
+      this.touchingEdge.emit(touchingEdge);
+    }
+
     if (target) {
       if (this.lastDraggingIndex !== target.i) {
         this.targetChanged.emit({
@@ -139,6 +145,21 @@ export class OrderableDirective implements AfterContentInit, OnDestroy {
 
       i++;
     }
+  }
+
+  isTouchingEdge(event: any) {
+    const container = this.containerElRef.nativeElement.parentNode.getBoundingClientRect();
+
+    const leftDiff = event.clientX - container.left,
+      rightDiff = container.right - event.clientX;
+
+    if (0 < leftDiff && leftDiff < 30) {
+      return 'left';
+    }
+    if (0 < rightDiff && rightDiff < 30) {
+      return 'right';
+    }
+    return null;
   }
 
   private createMapDiffs(): { [key: string]: DraggableDirective } {

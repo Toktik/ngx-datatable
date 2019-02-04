@@ -112,6 +112,7 @@ import { Location, LocationStrategy, HashLocationStrategy } from '@angular/commo
               <li><a href="#force" (click)="state='force'">Force</a></li>
               <li><a href="#pinning" (click)="state='pinning'">Pinning</a></li>
               <li><a href="#reorder" (click)="state='reorder'">Reorder</a></li>
+              <li><a href="#reorder-scrolling" (click)="state='reorder-scrolling'">Reorder with horizontal scrolling</a></li>
             </ul>
           </li>
           <li>
@@ -182,6 +183,7 @@ import { Location, LocationStrategy, HashLocationStrategy } from '@angular/commo
         <column-force-demo *ngIf="state === 'force'"></column-force-demo>
         <column-pinning-demo *ngIf="state === 'pinning'"></column-pinning-demo>
         <column-reorder-demo *ngIf="state === 'reorder'"></column-reorder-demo>
+        <column-reorder-scrolling-demo *ngIf="state === 'reorder-scrolling'"></column-reorder-scrolling-demo>
 
         <!-- Summary row -->
         <summary-row-simple-demo *ngIf="state === 'simple-summary'"></summary-row-simple-demo>
