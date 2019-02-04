@@ -468,6 +468,7 @@ export declare class DatatableComponent implements OnInit, DoCheck, AfterViewIni
      * The header triggered a column re-order event.
      */
     onColumnReorder({column, newValue, prevValue}: any): void;
+    onTouchingEdge($event: any): void;
     /**
      * The header triggered a column sort event.
      */

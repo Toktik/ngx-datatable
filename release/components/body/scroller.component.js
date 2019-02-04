@@ -41,6 +41,11 @@ var ScrollerComponent = /** @class */ (function () {
             this.parentElement.scrollTop = offsetY;
         }
     };
+    ScrollerComponent.prototype.setOffsetX = function (offsetX) {
+        if (this.parentElement) {
+            this.parentElement.scrollLeft = offsetX;
+        }
+    };
     ScrollerComponent.prototype.onScrolled = function (event) {
         var _this = this;
         var dom = event.currentTarget;

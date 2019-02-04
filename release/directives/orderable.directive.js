@@ -16,10 +16,12 @@ var core_1 = require("@angular/core");
 var draggable_directive_1 = require("./draggable.directive");
 var platform_browser_1 = require("@angular/platform-browser");
 var OrderableDirective = /** @class */ (function () {
-    function OrderableDirective(differs, document) {
+    function OrderableDirective(differs, document, containerElRef) {
         this.document = document;
+        this.containerElRef = containerElRef;
         this.reorder = new core_1.EventEmitter();
         this.targetChanged = new core_1.EventEmitter();
+        this.touchingEdge = new core_1.EventEmitter();
         this.differ = differs.find({}).create();
     }
     OrderableDirective.prototype.ngAfterContentInit = function () {
@@ -79,6 +81,10 @@ var OrderableDirective = /** @class */ (function () {
         var element = _a.element, model = _a.model, event = _a.event;
         var prevPos = this.positions[model.prop];
         var target = this.isTarget(model, event);
+        var touchingEdge = this.isTouchingEdge(event);
+        if (touchingEdge) {
+            this.touchingEdge.emit(touchingEdge);
+        }
         if (target) {
             if (this.lastDraggingIndex !== target.i) {
                 this.targetChanged.emit({
@@ -135,6 +141,17 @@ var OrderableDirective = /** @class */ (function () {
                 return state_1.value;
         }
     };
+    OrderableDirective.prototype.isTouchingEdge = function (event) {
+        var container = this.containerElRef.nativeElement.parentNode.getBoundingClientRect();
+        var leftDiff = event.clientX - container.left, rightDiff = container.right - event.clientX;
+        if (0 < leftDiff && leftDiff < 30) {
+            return 'left';
+        }
+        if (0 < rightDiff && rightDiff < 30) {
+            return 'right';
+        }
+        return null;
+    };
     OrderableDirective.prototype.createMapDiffs = function () {
         return this.draggables.toArray()
             .reduce(function (acc, curr) {
@@ -151,13 +168,17 @@ var OrderableDirective = /** @class */ (function () {
         __metadata("design:type", core_1.EventEmitter)
     ], OrderableDirective.prototype, "targetChanged", void 0);
     __decorate([
+        core_1.Output(),
+        __metadata("design:type", core_1.EventEmitter)
+    ], OrderableDirective.prototype, "touchingEdge", void 0);
+    __decorate([
         core_1.ContentChildren(draggable_directive_1.DraggableDirective, { descendants: true }),
         __metadata("design:type", core_1.QueryList)
     ], OrderableDirective.prototype, "draggables", void 0);
     OrderableDirective = __decorate([
         core_1.Directive({ selector: '[orderable]' }),
         __param(1, core_1.Inject(platform_browser_1.DOCUMENT)),
-        __metadata("design:paramtypes", [core_1.KeyValueDiffers, Object])
+        __metadata("design:paramtypes", [core_1.KeyValueDiffers, Object, core_1.ElementRef])
     ], OrderableDirective);
     return OrderableDirective;
 }());

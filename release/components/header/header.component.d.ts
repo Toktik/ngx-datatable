@@ -27,6 +27,7 @@ export declare class DataTableHeaderComponent {
         event: MouseEvent;
         column: any;
     }>;
+    touchingEdge: EventEmitter<any>;
     _columnsByPin: any;
     _columnGroupWidths: any;
     _innerWidth: number;
@@ -53,6 +54,7 @@ export declare class DataTableHeaderComponent {
     onColumnResized(width: number, column: DataTableColumnDirective): void;
     onColumnReordered({prevIndex, newIndex, model}: any): void;
     onTargetChanged({prevIndex, newIndex, initialIndex}: any): void;
+    onTouchingEdge($event: any): void;
     getColumn(index: number): any;
     onSort({column, prevValue, newValue}: any): void;
     calcNewSorts(column: any, prevValue: number, newValue: number): any[];
