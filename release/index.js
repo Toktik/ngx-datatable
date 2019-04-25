@@ -1,5 +1,5 @@
 /**
- * angular2-data-table v"13.0.1-5" (https://github.com/swimlane/angular2-data-table)
+ * angular2-data-table v"13.0.1-8" (https://github.com/swimlane/angular2-data-table)
  * Copyright 2016
  * Licensed under MIT
  */
@@ -5684,7 +5684,12 @@ var ResizeableDirective = /** @class */ (function () {
         renderer2.appendChild(this.element, this.createdNode);
     };
     ResizeableDirective.prototype.ngOnDestroy = function () {
-        this.renderer.destroyNode(this.createdNode);
+        if (this.renderer.destroyNode) {
+            this.renderer.destroyNode(this.createdNode);
+        }
+        else {
+            this.renderer.removeChild(this.renderer.parentNode(this.createdNode), this.createdNode);
+        }
         this._destroySubscription();
     };
     ResizeableDirective.prototype.onMouseup = function () {

@@ -33,7 +33,12 @@ var ResizeableDirective = /** @class */ (function () {
         renderer2.appendChild(this.element, this.createdNode);
     };
     ResizeableDirective.prototype.ngOnDestroy = function () {
-        this.renderer.destroyNode(this.createdNode);
+        if (this.renderer.destroyNode) {
+            this.renderer.destroyNode(this.createdNode);
+        }
+        else {
+            this.renderer.removeChild(this.renderer.parentNode(this.createdNode), this.createdNode);
+        }
         this._destroySubscription();
     };
     ResizeableDirective.prototype.onMouseup = function () {
