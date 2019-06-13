@@ -80,6 +80,7 @@ import { MouseEvent } from '../../events';
               [rowIndex]="getRowIndex(row)"
               [expanded]="getRowExpanded(row)"
               [rowClass]="rowClass"
+              [displayCheck]="displayCheck"
               (activate)="selector.onActivate($event, i)">
             </datatable-body-row>
           </ng-template>
