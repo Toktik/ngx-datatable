@@ -45,7 +45,7 @@ export class DataTableRowWrapperComponent implements DoCheck {
   @Input() offsetX: number;
   @Input() detailRowHeight: any;
   @Input() row: any;
-  @Input() groupedRows: any;  
+  @Input() groupedRows: any;
   @Output() rowContextmenu = new EventEmitter<{event: MouseEvent, row: any}>(false);
 
   @Input() set rowIndex(val: number) {
@@ -85,7 +85,7 @@ export class DataTableRowWrapperComponent implements DoCheck {
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private _expanded: boolean = false;
   private _rowIndex: number;
-  
+
   constructor(private cd: ChangeDetectorRef, private differs: KeyValueDiffers) {
     this.rowDiffer = differs.find({}).create();
   }
@@ -108,8 +108,8 @@ export class DataTableRowWrapperComponent implements DoCheck {
 
     styles['transform'] = 'translate3d(' + this.offsetX + 'px, 0px, 0px)';
     styles['backface-visibility'] = 'hidden';
-    styles['width'] = this.innerWidth;
+    styles['width'] = this.innerWidth + 'px';
 
-    return styles; 
+    return styles;
   }
 }

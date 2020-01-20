@@ -1,5 +1,5 @@
 /**
- * angular2-data-table v"13.0.1-9" (https://github.com/swimlane/angular2-data-table)
+ * angular2-data-table v"13.0.1-10" (https://github.com/swimlane/angular2-data-table)
  * Copyright 2016
  * Licensed under MIT
  */
@@ -840,7 +840,7 @@ var DataTableRowWrapperComponent = /** @class */ (function () {
         var styles = {};
         styles['transform'] = 'translate3d(' + this.offsetX + 'px, 0px, 0px)';
         styles['backface-visibility'] = 'hidden';
-        styles['width'] = this.innerWidth;
+        styles['width'] = this.innerWidth + 'px';
         return styles;
     };
     __decorate([
