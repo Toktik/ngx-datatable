@@ -853,26 +853,33 @@ var DatatableComponent = /** @class */ (function () {
      * Toggle all row selection
      */
     DatatableComponent.prototype.onHeaderSelect = function (event) {
+        var _this = this;
         if (this.selectAllRowsOnPage) {
             // before we splice, chk if we currently have all selected
             var first = this.bodyComponent.indexes.first;
             var last = this.bodyComponent.indexes.last;
-            var allSelected = this.selected.length === (last - first);
+            var rows = this._internalRows.slice(first, last).filter(function (row) {
+                return (!_this.displayCheck || _this.displayCheck && _this.displayCheck(row));
+            });
+            var allSelected = this.selected.length === rows.length;
             // remove all existing either way
             this.selected = [];
             // do the opposite here
             if (!allSelected) {
-                (_a = this.selected).push.apply(_a, this._internalRows.slice(first, last));
+                (_a = this.selected).push.apply(_a, rows);
             }
         }
         else {
+            var rows = this.rows.filter(function (row) {
+                return (!_this.displayCheck || _this.displayCheck && _this.displayCheck(row));
+            });
             // before we splice, chk if we currently have all selected
-            var allSelected = this.selected.length === this.rows.length;
+            var allSelected = this.selected.length === rows.length;
             // remove all existing either way
             this.selected = [];
             // do the opposite here
             if (!allSelected) {
-                (_b = this.selected).push.apply(_b, this.rows);
+                (_b = this.selected).push.apply(_b, rows);
             }
         }
         this.select.emit({

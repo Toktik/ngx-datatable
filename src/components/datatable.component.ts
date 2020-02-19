@@ -1109,23 +1109,29 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
       // before we splice, chk if we currently have all selected
       const first = this.bodyComponent.indexes.first;
       const last = this.bodyComponent.indexes.last;
-      const allSelected = this.selected.length === (last - first);
+      const rows = this._internalRows.slice(first, last).filter((row: any) => {
+        return (!this.displayCheck || this.displayCheck && this.displayCheck(row));
+      });
+      const allSelected = this.selected.length === rows.length;
 
       // remove all existing either way
       this.selected = [];
 
       // do the opposite here
       if (!allSelected) {
-        this.selected.push(...this._internalRows.slice(first, last));
+        this.selected.push(...rows);
       }
     } else {
+      const rows = this.rows.filter((row: any) => {
+        return (!this.displayCheck || this.displayCheck && this.displayCheck(row));
+      });
       // before we splice, chk if we currently have all selected
-      const allSelected = this.selected.length === this.rows.length;
+      const allSelected = this.selected.length === rows.length;
       // remove all existing either way
       this.selected = [];
       // do the opposite here
       if (!allSelected) {
-        this.selected.push(...this.rows);
+        this.selected.push(...rows);
       }
     }
 
