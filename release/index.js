@@ -1,5 +1,5 @@
 /**
- * angular2-data-table v"13.0.1-11" (https://github.com/swimlane/angular2-data-table)
+ * angular2-data-table v"13.0.1-14" (https://github.com/swimlane/angular2-data-table)
  * Copyright 2016
  * Licensed under MIT
  */
@@ -3131,14 +3131,17 @@ var DatatableComponent = /** @class */ (function () {
          * Returns if all rows are selected.
          */
         get: function () {
-            var allRowsSelected = (this.rows && this.selected && this.selected.length === this.rows.length);
+            if (!this.rows)
+                return false;
+            var rows = this.getSelectableRows(this.rows);
+            var allRowsSelected = this.selected && this.selected.length === rows.length;
             if (this.selectAllRowsOnPage) {
                 var indexes = this.bodyComponent.indexes;
-                var rowsOnPage = indexes.last - indexes.first;
-                allRowsSelected = (this.selected.length === rowsOnPage);
+                var rowsOnPage = this.getSelectableRows(this._internalRows.slice(indexes.first, indexes.last));
+                allRowsSelected = (this.selected.length === rowsOnPage.length);
             }
-            return this.selected && this.rows &&
-                this.rows.length !== 0 && allRowsSelected;
+            return this.selected && rows &&
+                rows.length !== 0 && allRowsSelected;
         },
         enumerable: true,
         configurable: true
@@ -3569,6 +3572,12 @@ var DatatableComponent = /** @class */ (function () {
     };
     DatatableComponent.prototype.sortInternalRows = function () {
         this._internalRows = utils_1.sortRows(this._internalRows, this._internalColumns, this._sorts);
+    };
+    DatatableComponent.prototype.getSelectableRows = function (rows) {
+        var _this = this;
+        return rows.filter(function (row) {
+            return (!_this.displayCheck || _this.displayCheck && _this.displayCheck(row));
+        });
     };
     __decorate([
         core_1.Input(),

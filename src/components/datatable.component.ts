@@ -652,16 +652,19 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
    * Returns if all rows are selected.
    */
   get allRowsSelected(): boolean {
-    let allRowsSelected = (this.rows && this.selected && this.selected.length === this.rows.length);
+    if (!this.rows) return false;
+
+    const rows = this.getSelectableRows(this.rows);
+    let allRowsSelected = this.selected && this.selected.length === rows.length;
 
     if (this.selectAllRowsOnPage) {
       const indexes = this.bodyComponent.indexes;
-      const rowsOnPage = indexes.last - indexes.first;
-      allRowsSelected = (this.selected.length === rowsOnPage);
+      const rowsOnPage = this.getSelectableRows(this._internalRows.slice(indexes.first, indexes.last));
+      allRowsSelected = (this.selected.length === rowsOnPage.length);
     }
 
-    return this.selected && this.rows &&
-      this.rows.length !== 0 && allRowsSelected;
+    return this.selected && rows &&
+      rows.length !== 0 && allRowsSelected;
   }
 
   element: HTMLElement;
@@ -1167,5 +1170,11 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
 
   private sortInternalRows(): void {
     this._internalRows = sortRows(this._internalRows, this._internalColumns, this._sorts);
+  }
+
+  private getSelectableRows(rows: any[]) {
+    return rows.filter((row: any) => {
+      return (!this.displayCheck || this.displayCheck && this.displayCheck(row));
+    });
   }
 }

@@ -488,4 +488,5 @@ export declare class DatatableComponent implements OnInit, DoCheck, AfterViewIni
      */
     private listenForColumnInputChanges();
     private sortInternalRows();
+    private getSelectableRows(rows);
 }
