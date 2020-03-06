@@ -29,7 +29,7 @@ import { MouseEvent } from '../../events';
         [scrollbarH]="scrollbarH"
         [scrollHeight]="scrollHeight"
         [scrollWidth]="columnGroupWidths?.total"
-        (scroll)="onBodyScroll($event)">
+        (scrolled)="onBodyScroll($event)">
         <datatable-summary-row
           *ngIf="summaryRow && summaryPosition === 'top'"
           [rowHeight]="summaryHeight"
@@ -206,7 +206,7 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
     return this._bodyHeight;
   }
 
-  @Output() scroll: EventEmitter<any> = new EventEmitter();
+  @Output() scrolled: EventEmitter<any> = new EventEmitter();
   @Output() page: EventEmitter<any> = new EventEmitter();
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() select: EventEmitter<any> = new EventEmitter();
@@ -337,7 +337,7 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
     // if scroll change, trigger update
     // this is mainly used for header cell positions
     if (this.offsetY !== scrollYPos || this.offsetX !== scrollXPos) {
-      this.scroll.emit({
+      this.scrolled.emit({
         offsetY: scrollYPos,
         offsetX: scrollXPos
       });

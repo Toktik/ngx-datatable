@@ -85,7 +85,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
         (activate)="activate.emit($event)"
         (rowContextmenu)="onRowContextmenu($event)"
         (select)="onBodySelect($event)"
-        (scroll)="onBodyScroll($event)">
+        (scrolled)="onBodyScroll($event)">
       </datatable-body>
       <datatable-footer
         *ngIf="footerHeight"

@@ -35,7 +35,7 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
     rowCount: number;
     readonly bodyWidth: string;
     bodyHeight: any;
-    scroll: EventEmitter<any>;
+    scrolled: EventEmitter<any>;
     page: EventEmitter<any>;
     activate: EventEmitter<any>;
     select: EventEmitter<any>;

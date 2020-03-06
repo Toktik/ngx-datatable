@@ -26,6 +26,8 @@ import { Component } from '@angular/core';
         <ngx-datatable-column name="Age"></ngx-datatable-column>
         <ngx-datatable-column name="City" [width]="300" prop="address.city"></ngx-datatable-column>
         <ngx-datatable-column name="State" [width]="300" prop="address.state"></ngx-datatable-column>
+        <ngx-datatable-column name="City" [width]="300" prop="address.city"></ngx-datatable-column>
+        <ngx-datatable-column name="State" [width]="300" prop="address.state"></ngx-datatable-column>
       </ngx-datatable>
     </div>
   `

@@ -26,7 +26,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   @HostBinding('style.width.px')
   @Input() scrollWidth: number;
 
-  @Output() scroll: EventEmitter<any> = new EventEmitter();
+  @Output() scrolled: EventEmitter<any> = new EventEmitter();
 
   scrollYPos: number = 0;
   scrollXPos: number = 0;
@@ -85,7 +85,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
       direction = 'up';
     }
 
-    this.scroll.emit({
+    this.scrolled.emit({
       direction,
       scrollYPos: this.scrollYPos,
       scrollXPos: this.scrollXPos

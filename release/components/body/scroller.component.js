@@ -16,7 +16,7 @@ var ScrollerComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.scrollbarV = false;
         this.scrollbarH = false;
-        this.scroll = new core_1.EventEmitter();
+        this.scrolled = new core_1.EventEmitter();
         this.scrollYPos = 0;
         this.scrollXPos = 0;
         this.prevScrollYPos = 0;
@@ -63,7 +63,7 @@ var ScrollerComponent = /** @class */ (function () {
         else if (this.scrollYPos > this.prevScrollYPos) {
             direction = 'up';
         }
-        this.scroll.emit({
+        this.scrolled.emit({
             direction: direction,
             scrollYPos: this.scrollYPos,
             scrollXPos: this.scrollXPos
@@ -92,7 +92,7 @@ var ScrollerComponent = /** @class */ (function () {
     __decorate([
         core_1.Output(),
         __metadata("design:type", core_1.EventEmitter)
-    ], ScrollerComponent.prototype, "scroll", void 0);
+    ], ScrollerComponent.prototype, "scrolled", void 0);
     ScrollerComponent = __decorate([
         core_1.Component({
             selector: 'datatable-scroller',
