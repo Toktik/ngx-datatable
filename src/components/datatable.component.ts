@@ -47,7 +47,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
         (resize)="onColumnResize($event)"
         (reorder)="onColumnReorder($event)"
         (touchingEdge)="onTouchingEdge($event)"
-        (select)="onHeaderSelect($event)"
+        (onSelect)="onHeaderSelect($event)"
         (columnContextmenu)="onColumnContextmenu($event)">
       </datatable-header>
       <datatable-body
@@ -84,7 +84,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
         (page)="onBodyPage($event)"
         (activate)="activate.emit($event)"
         (rowContextmenu)="onRowContextmenu($event)"
-        (select)="onBodySelect($event)"
+        (onSelect)="onBodySelect($event)"
         (scrolled)="onBodyScroll($event)">
       </datatable-body>
       <datatable-footer
@@ -479,7 +479,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
   /**
    * A cell or row was selected.
    */
-  @Output() select: EventEmitter<any> = new EventEmitter();
+  @Output() onSelect: EventEmitter<any> = new EventEmitter();
 
   /**
    * Column sort was invoked.
@@ -928,7 +928,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
 
     if (this.selectAllRowsOnPage) {
       this.selected = [];
-      this.select.emit({
+      this.onSelect.emit({
         selected: this.selected
       });
     }
@@ -1083,7 +1083,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
     // clean selected rows
     if (this.selectAllRowsOnPage) {
       this.selected = [];
-      this.select.emit({
+      this.onSelect.emit({
         selected: this.selected
       });
     }
@@ -1138,7 +1138,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
       }
     }
 
-    this.select.emit({
+    this.onSelect.emit({
       selected: this.selected
     });
   }
@@ -1147,7 +1147,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
    * A row was selected from body
    */
   onBodySelect(event: any): void {
-    this.select.emit(event);
+    this.onSelect.emit(event);
   }
 
   ngOnDestroy() {

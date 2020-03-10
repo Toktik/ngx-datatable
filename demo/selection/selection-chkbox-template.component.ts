@@ -30,7 +30,7 @@ import { Component } from '@angular/core';
           [selected]="selected"
           [selectionType]="'checkbox'"
           (activate)="onActivate($event)"
-          (select)='onSelect($event)'>
+          (onSelect)='onSelect($event)'>
           <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
               <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
                 <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"/>

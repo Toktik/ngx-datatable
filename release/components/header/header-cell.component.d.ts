@@ -15,7 +15,7 @@ export declare class DataTableHeaderCellComponent {
     headerHeight: number;
     sorts: any[];
     sort: EventEmitter<any>;
-    select: EventEmitter<any>;
+    onSelect: EventEmitter<any>;
     columnContextmenu: EventEmitter<{
         event: MouseEvent;
         column: any;

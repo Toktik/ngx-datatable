@@ -1,5 +1,5 @@
 import {
-  Component, Input, EventEmitter, Output, HostBinding, 
+  Component, Input, EventEmitter, Output, HostBinding,
   HostListener, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import { SortDirection, SortType, SelectionType, TableColumn } from '../../types';
@@ -21,7 +21,7 @@ import { MouseEvent } from '../../events';
         <input
           type="checkbox"
           [checked]="allRowsSelected"
-          (change)="select.emit(!allRowsSelected)"
+          (change)="onSelect.emit(!allRowsSelected)"
         />
       </label>
       <span
@@ -62,7 +62,7 @@ export class DataTableHeaderCellComponent {
   @Input() targetMarkerContext: any;
 
   _allRowsSelected: boolean;
-  
+
   @Input() set allRowsSelected(value) {
     this._allRowsSelected = value;
     this.cellContext.allRowsSelected = value;
@@ -70,7 +70,7 @@ export class DataTableHeaderCellComponent {
   get allRowsSelected() {
     return this._allRowsSelected;
   }
-  
+
   @Input() selectionType: SelectionType;
 
   @Input() set column(column: TableColumn) {
@@ -100,7 +100,7 @@ export class DataTableHeaderCellComponent {
   }
 
   @Output() sort: EventEmitter<any> = new EventEmitter();
-  @Output() select: EventEmitter<any> = new EventEmitter();
+  @Output() onSelect: EventEmitter<any> = new EventEmitter();
   @Output() columnContextmenu = new EventEmitter<{ event: MouseEvent, column: any }>(false);
 
   @HostBinding('class')
@@ -167,7 +167,7 @@ export class DataTableHeaderCellComponent {
   sortClass: string;
   sortDir: SortDirection;
   sortIndex: number;
-  selectFn = this.select.emit.bind(this.select);
+  selectFn = this.onSelect.emit.bind(this.onSelect);
 
   cellContext: any = {
     column: this.column,

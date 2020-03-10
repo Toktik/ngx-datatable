@@ -22,7 +22,7 @@ export declare class DataTableHeaderComponent {
     sort: EventEmitter<any>;
     reorder: EventEmitter<any>;
     resize: EventEmitter<any>;
-    select: EventEmitter<any>;
+    onSelect: EventEmitter<any>;
     columnContextmenu: EventEmitter<{
         event: MouseEvent;
         column: any;

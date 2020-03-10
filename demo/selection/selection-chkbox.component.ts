@@ -32,7 +32,7 @@ import { Component } from '@angular/core';
           [selectAllRowsOnPage]="false"
           [displayCheck]="displayCheck"
           (activate)="onActivate($event)"
-          (select)='onSelect($event)'>
+          (onSelect)='onSelect($event)'>
           <ngx-datatable-column
             [width]="30"
             [sortable]="false"

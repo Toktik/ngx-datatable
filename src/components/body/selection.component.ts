@@ -4,7 +4,7 @@ import { SelectionType } from '../../types';
 import { MouseEvent, KeyboardEvent } from '../../events';
 
 export interface Model {
-  type: string; 
+  type: string;
   event: MouseEvent | KeyboardEvent;
   row: any;
   rowElement: any;
@@ -29,7 +29,7 @@ export class DataTableSelectionComponent {
   @Input() selectCheck: any;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
-  @Output() select: EventEmitter<any> = new EventEmitter();
+  @Output() onSelect: EventEmitter<any> = new EventEmitter();
 
   prevIndex: number;
 
@@ -67,7 +67,7 @@ export class DataTableSelectionComponent {
 
     this.prevIndex = index;
 
-    this.select.emit({
+    this.onSelect.emit({
       selected
     });
   }

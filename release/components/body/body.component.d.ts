@@ -38,7 +38,7 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
     scrolled: EventEmitter<any>;
     page: EventEmitter<any>;
     activate: EventEmitter<any>;
-    select: EventEmitter<any>;
+    onSelect: EventEmitter<any>;
     detailToggle: EventEmitter<any>;
     rowContextmenu: EventEmitter<{
         event: MouseEvent;

@@ -15,7 +15,7 @@ var types_1 = require("../../types");
 var DataTableSelectionComponent = /** @class */ (function () {
     function DataTableSelectionComponent() {
         this.activate = new core_1.EventEmitter();
-        this.select = new core_1.EventEmitter();
+        this.onSelect = new core_1.EventEmitter();
     }
     DataTableSelectionComponent.prototype.selectRow = function (event, index, row) {
         if (!this.selectEnabled)
@@ -44,7 +44,7 @@ var DataTableSelectionComponent = /** @class */ (function () {
         this.selected.splice(0, this.selected.length);
         (_a = this.selected).push.apply(_a, selected);
         this.prevIndex = index;
-        this.select.emit({
+        this.onSelect.emit({
             selected: selected
         });
         var _a;
@@ -166,7 +166,7 @@ var DataTableSelectionComponent = /** @class */ (function () {
     __decorate([
         core_1.Output(),
         __metadata("design:type", core_1.EventEmitter)
-    ], DataTableSelectionComponent.prototype, "select", void 0);
+    ], DataTableSelectionComponent.prototype, "onSelect", void 0);
     DataTableSelectionComponent = __decorate([
         core_1.Component({
             selector: 'datatable-selection',

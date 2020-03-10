@@ -47,7 +47,7 @@ import { MouseEvent } from '../../events';
           [sortDescendingIcon]="sortDescendingIcon"
           [allRowsSelected]="allRowsSelected"
           (sort)="onSort($event)"
-          (select)="select.emit($event)"
+          (onSelect)="onSelect.emit($event)"
           (columnContextmenu)="columnContextmenu.emit($event)">
         </datatable-header-cell>
       </div>
@@ -65,19 +65,19 @@ export class DataTableHeaderComponent {
   @Input() scrollbarH: boolean;
   @Input() dealsWithGroup: boolean;
   @Input() targetMarkerTemplate: any;
-  
+
   targetMarkerContext: any;
 
   @Input() set innerWidth(val: number) {
     this._innerWidth = val;
 
-    if (this._columns) {    
+    if (this._columns) {
       const colByPin = columnsByPin(this._columns);
       this._columnGroupWidths = columnGroupWidths(colByPin, this._columns);
       this.setStylesByGroup();
     }
   }
-    
+
   get innerWidth(): number {
     return this._innerWidth;
   }
@@ -104,7 +104,7 @@ export class DataTableHeaderComponent {
   }
 
   @Input() set columns(val: any[]) {
-    this._columns = val;    
+    this._columns = val;
 
     const colsByPin = columnsByPin(val);
     this._columnsByPin = columnsByPinArr(val);
@@ -126,7 +126,7 @@ export class DataTableHeaderComponent {
   @Output() sort: EventEmitter<any> = new EventEmitter();
   @Output() reorder: EventEmitter<any> = new EventEmitter();
   @Output() resize: EventEmitter<any> = new EventEmitter();
-  @Output() select: EventEmitter<any> = new EventEmitter();
+  @Output() onSelect: EventEmitter<any> = new EventEmitter();
   @Output() columnContextmenu = new EventEmitter<{ event: MouseEvent, column: any }>(false);
   @Output() touchingEdge: EventEmitter<any> = new EventEmitter();
 
@@ -154,7 +154,7 @@ export class DataTableHeaderComponent {
 
     // delay resetting so sort can be
     // prevented if we were dragging
-    setTimeout(() => {   
+    setTimeout(() => {
       // datatable component creates copies from columns on reorder
       // set dragging to false on new objects
       const column = this._columns.find(c => c.$$id === model.$$id);
@@ -173,7 +173,7 @@ export class DataTableHeaderComponent {
     return '100%';
   }
 
-  trackByGroups(index: number, colGroup: any): any {    
+  trackByGroups(index: number, colGroup: any): any {
     return colGroup.type;
   }
 
@@ -215,9 +215,9 @@ export class DataTableHeaderComponent {
     if (newIndex || newIndex === 0) {
       const newColumn = this.getColumn(newIndex);
       newColumn.isTarget = true;
-      
+
       if (initialIndex !== newIndex) {
-        newColumn.targetMarkerContext = {class: 'targetMarker '.concat( 
+        newColumn.targetMarkerContext = {class: 'targetMarker '.concat(
           initialIndex > newIndex ? 'dragFromRight' : 'dragFromLeft')};
       }
     }

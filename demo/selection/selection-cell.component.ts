@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
         [rowHeight]="50"
         [selected]="selected"
         [selectionType]="'cell'"
-        (select)="onSelect($event)"
+        (onSelect)="onSelect($event)"
         (activate)="onActivate($event)">
       </ngx-datatable>
     </div>
@@ -33,8 +33,8 @@ export class CellSelectionComponent {
   rows: any[] = [];
   selected: any[] = [];
   columns: any[] = [
-    { prop: 'name'} , 
-    { name: 'Company' }, 
+    { prop: 'name'} ,
+    { name: 'Company' },
     { name: 'Gender' }
   ];
 

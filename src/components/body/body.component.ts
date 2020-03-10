@@ -18,7 +18,7 @@ import { MouseEvent } from '../../events';
       [selectEnabled]="selectEnabled"
       [selectionType]="selectionType"
       [rowIdentity]="rowIdentity"
-      (select)="select.emit($event)"
+      (onSelect)="onSelect.emit($event)"
       (activate)="activate.emit($event)">
       <datatable-progress
         *ngIf="loadingIndicator">
@@ -209,7 +209,7 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
   @Output() scrolled: EventEmitter<any> = new EventEmitter();
   @Output() page: EventEmitter<any> = new EventEmitter();
   @Output() activate: EventEmitter<any> = new EventEmitter();
-  @Output() select: EventEmitter<any> = new EventEmitter();
+  @Output() onSelect: EventEmitter<any> = new EventEmitter();
   @Output() detailToggle: EventEmitter<any> = new EventEmitter();
   @Output() rowContextmenu = new EventEmitter<{ event: MouseEvent, row: any }>(false);
 

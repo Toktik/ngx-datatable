@@ -29,7 +29,7 @@ import { Component } from '@angular/core';
           [selected]="selected"
           [selectionType]="'single'"
           (activate)="onActivate($event)"
-          (select)='onSelect($event)'>
+          (onSelect)='onSelect($event)'>
         </ngx-datatable>
       </div>
 
@@ -52,8 +52,8 @@ export class SingleSelectionComponent {
   selected = [];
 
   columns: any[] = [
-    { prop: 'name'} , 
-    { name: 'Company' }, 
+    { prop: 'name'} ,
+    { name: 'Company' },
     { name: 'Gender' }
   ];
 

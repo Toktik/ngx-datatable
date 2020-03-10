@@ -245,7 +245,7 @@ export declare class DatatableComponent implements OnInit, DoCheck, AfterViewIni
     /**
      * A cell or row was selected.
      */
-    select: EventEmitter<any>;
+    onSelect: EventEmitter<any>;
     /**
      * Column sort was invoked.
      */
