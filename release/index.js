@@ -1,5 +1,5 @@
 /**
- * angular2-data-table v"13.0.1-16" (https://github.com/swimlane/angular2-data-table)
+ * angular2-data-table v"13.0.1-17" (https://github.com/swimlane/angular2-data-table)
  * Copyright 2016
  * Licensed under MIT
  */
@@ -5593,8 +5593,8 @@ var OrderableDirective = /** @class */ (function () {
     };
     OrderableDirective.prototype.isTarget = function (model, event) {
         var i = 0;
-        var x = event.x || event.clientX;
-        var y = event.y || event.clientY;
+        var x = event.clientX || event.x;
+        var y = event.clientY || event.y;
         var targets = this.document.elementsFromPoint(x, y);
         var _loop_1 = function (prop) {
             // current column position which throws event.
