@@ -25,7 +25,6 @@ export class ResizeableDirective implements OnDestroy, AfterViewInit {
 
   @Output() resize: EventEmitter<any> = new EventEmitter();
 
-  createdNode: any;
   element: HTMLElement;
   subscription: Subscription;
   resizing: boolean = false;
@@ -47,11 +46,6 @@ export class ResizeableDirective implements OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    if (this.renderer.destroyNode) {
-      this.renderer.destroyNode(this.createdNode);
-    } else {
-      this.renderer.removeChild(this.renderer.parentNode(this.createdNode), this.createdNode);
-    }
     this._destroySubscription();
     if (this.renderer.destroyNode) {
       this.renderer.destroyNode(this.resizeHandle);
