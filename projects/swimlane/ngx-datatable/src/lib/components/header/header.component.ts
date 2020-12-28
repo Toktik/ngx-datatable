@@ -59,7 +59,8 @@ import { translateXY } from '../../utils/translate';
           [allRowsSelected]="allRowsSelected"
           (sort)="onSort($event)"
           (onSelect)="onSelect.emit($event)"
-          (columnContextmenu)="columnContextmenu.emit($event)">
+          (columnContextmenu)="columnContextmenu.emit($event)"
+        >
         </datatable-header-cell>
       </div>
     </div>
@@ -144,8 +145,10 @@ export class DataTableHeaderComponent implements OnDestroy {
   @Output() reorder: EventEmitter<any> = new EventEmitter();
   @Output() resize: EventEmitter<any> = new EventEmitter();
   @Output() onSelect: EventEmitter<any> = new EventEmitter();
-  @Output() columnContextmenu = new EventEmitter<{ event: MouseEvent, column: any }>(false);
+  @Output() columnContextmenu = new EventEmitter<{ event: MouseEvent; column: any }>(false);
   @Output() touchingEdge: EventEmitter<any> = new EventEmitter();
+  @Output() longPressStart: EventEmitter<any> = new EventEmitter();
+  @Output() longPressEnd: EventEmitter<any> = new EventEmitter();
 
   _columnsByPin: any;
   _columnGroupWidths: any = {
@@ -172,10 +175,12 @@ export class DataTableHeaderComponent implements OnDestroy {
   onLongPressStart({ event, model }: { event: any; model: any }) {
     model.dragging = true;
     this.dragEventTarget = event;
+    this.longPressStart.emit({ event, model });
   }
 
   onLongPressEnd({ event, model }: { event: any; model: any }) {
     this.dragEventTarget = event;
+    this.longPressEnd.emit({ event, model });
 
     // delay resetting so sort can be
     // prevented if we were dragging

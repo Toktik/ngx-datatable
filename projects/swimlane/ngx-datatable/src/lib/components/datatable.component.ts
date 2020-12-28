@@ -465,6 +465,9 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
    */
   @Output() treeAction: EventEmitter<any> = new EventEmitter();
 
+  @Output() longPressStart: EventEmitter<any> = new EventEmitter();
+  @Output() longPressEnd: EventEmitter<any> = new EventEmitter();
+
   /**
    * CSS class applied if the header height if fixed height.
    */
@@ -621,11 +624,10 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
     if (this.bodyComponent && this.selectAllRowsOnPage) {
       const indexes = this.bodyComponent.indexes;
       const rowsOnPage = this.getSelectableRows(this._internalRows.slice(indexes.first, indexes.last));
-      allRowsSelected = (this.selected.length === rowsOnPage.length);
+      allRowsSelected = this.selected.length === rowsOnPage.length;
     }
 
-    return this.selected && rows &&
-      rows.length !== 0 && allRowsSelected;
+    return this.selected && rows && rows.length !== 0 && allRowsSelected;
   }
 
   element: HTMLElement;
@@ -1032,10 +1034,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
     });
     const prevCol = cols[newValue];
 
-    if (
-      (column.frozenLeft !== prevCol.frozenLeft) ||
-      (column.frozenRight !== prevCol.frozenRight)
-    ) {
+    if (column.frozenLeft !== prevCol.frozenLeft || column.frozenRight !== prevCol.frozenRight) {
       return;
     }
 
@@ -1068,10 +1067,18 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
   }
 
   onTouchingEdge($event: any) {
-      let offsetX = $event === 'left' ? -5 : 5;
-      this.bodyComponent.scroller.setOffsetX(this.bodyComponent.scroller.scrollXPos + offsetX);
-      this.bodyComponent.scroller.updateOffset();
-      this.cd.detectChanges();
+    let offsetX = $event === 'left' ? -5 : 5;
+    this.bodyComponent.scroller.setOffsetX(this.bodyComponent.scroller.scrollXPos + offsetX);
+    this.bodyComponent.scroller.updateOffset();
+    this.cd.detectChanges();
+  }
+
+  onLongPressStart(event: any) {
+    this.longPressStart.emit(event);
+  }
+
+  onLongPressEnd(event: any) {
+    this.longPressEnd.emit(event);
   }
 
   /**
@@ -1117,7 +1124,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
       const first = this.bodyComponent.indexes.first;
       const last = this.bodyComponent.indexes.last;
       const rows = this._internalRows.slice(first, last).filter((row: any) => {
-        return (!this.displayCheck || this.displayCheck && this.displayCheck(row));
+        return !this.displayCheck || (this.displayCheck && this.displayCheck(row));
       });
       const allSelected = this.selected.length === rows.length;
 
@@ -1130,7 +1137,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
       }
     } else {
       const rows = this.rows.filter((row: any) => {
-        return (!this.displayCheck || this.displayCheck && this.displayCheck(row));
+        return !this.displayCheck || (this.displayCheck && this.displayCheck(row));
       });
       // before we splice, chk if we currently have all selected
       const allSelected = this.selected.length === rows.length;
@@ -1188,7 +1195,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
 
   private getSelectableRows(rows: any[]) {
     return rows.filter((row: any) => {
-      return (!this.displayCheck || this.displayCheck && this.displayCheck(row));
+      return !this.displayCheck || (this.displayCheck && this.displayCheck(row));
     });
   }
 }
